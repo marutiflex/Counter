@@ -1,0 +1,699 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+
+  font-family:
+    Arial,
+    sans-serif;
+}
+
+
+body {
+
+  background: #f4f6f9;
+
+  color: #222;
+
+}
+
+
+button {
+
+  border: none;
+
+  cursor: pointer;
+
+}
+
+
+.app {
+
+  max-width: 1200px;
+
+  margin: auto;
+
+  padding: 30px;
+
+}
+
+
+/* HEADER */
+
+.header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 30px;
+
+}
+
+
+.header h1 {
+
+  font-size: 32px;
+
+}
+
+
+.header p {
+
+  margin-top: 5px;
+
+  color: #777;
+
+}
+
+
+.create-btn {
+
+  padding: 13px 20px;
+
+  background: #2563eb;
+
+  color: white;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+
+}
+
+
+/* COUNTER LIST */
+
+.counter-list {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    );
+
+  gap: 20px;
+
+}
+
+
+/* COUNTER CARD */
+
+.counter-card {
+
+  background: white;
+
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 5px 20px
+    rgba(0,0,0,.08);
+
+  transition: .3s;
+
+}
+
+
+.counter-card:hover {
+
+  transform:
+    translateY(-5px);
+
+}
+
+
+/* CARD BG */
+
+.counter-card-bg {
+
+  height: 150px;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #ff9966,
+      #ff5e62
+    );
+
+  background-size: cover;
+
+  background-position: center;
+
+}
+
+
+/* CARD CONTENT */
+
+.counter-card-content {
+
+  padding: 20px;
+
+}
+
+
+.counter-card h2 {
+
+  margin-bottom: 10px;
+
+}
+
+
+.score {
+
+  font-size: 28px;
+
+  font-weight: bold;
+
+  color: #2563eb;
+
+}
+
+
+.target {
+
+  color: #777;
+
+  margin-top: 5px;
+
+}
+
+
+.card-buttons {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-top: 20px;
+
+}
+
+
+.card-buttons button {
+
+  flex: 1;
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+}
+
+
+.open-btn {
+
+  background: #2563eb;
+
+  color: white;
+
+}
+
+
+.report-btn {
+
+  background: #f1f5f9;
+
+}
+
+
+.edit-btn {
+
+  background: #f59e0b;
+
+  color: white;
+
+}
+
+
+.delete-btn {
+
+  background: #ef4444;
+
+  color: white;
+
+}
+
+
+/* EMPTY */
+
+.empty-state {
+
+  text-align: center;
+
+  padding: 80px 20px;
+
+}
+
+
+.empty-icon {
+
+  font-size: 60px;
+
+}
+
+
+.empty-state h2 {
+
+  margin-top: 15px;
+
+}
+
+
+.empty-state p {
+
+  color: #777;
+
+  margin:
+    10px
+    0
+    20px;
+
+}
+
+
+.empty-state button {
+
+  padding:
+    12px
+    20px;
+
+  background: #2563eb;
+
+  color: white;
+
+  border-radius: 8px;
+
+}
+
+
+/* MODAL */
+
+.modal-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(0,0,0,.5);
+
+  display: none;
+
+  justify-content: center;
+
+  align-items: center;
+
+  z-index: 1000;
+
+}
+
+
+.modal-overlay.show {
+
+  display: flex;
+
+}
+
+
+.modal {
+
+  width: 90%;
+
+  max-width: 500px;
+
+  background: white;
+
+  border-radius: 15px;
+
+  padding: 25px;
+
+  max-height: 90vh;
+
+  overflow-y: auto;
+
+}
+
+
+.modal-header {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  margin-bottom: 25px;
+
+}
+
+
+.close-btn {
+
+  font-size: 30px;
+
+  background: none;
+
+}
+
+
+.form-group {
+
+  margin-bottom: 20px;
+
+}
+
+
+.form-group label {
+
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-weight: 600;
+
+}
+
+
+.form-group input,
+.form-group select {
+
+  width: 100%;
+
+  padding: 12px;
+
+  border:
+    1px solid
+    #ddd;
+
+  border-radius: 8px;
+
+  font-size: 15px;
+
+}
+
+
+.save-btn {
+
+  width: 100%;
+
+  padding: 14px;
+
+  background: #2563eb;
+
+  color: white;
+
+  border-radius: 8px;
+
+  font-size: 16px;
+
+}
+
+
+/* COUNTER SCREEN */
+
+.counter-screen {
+
+  position: fixed;
+
+  inset: 0;
+
+  display: none;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+  color: white;
+
+  background:
+
+    linear-gradient(
+      135deg,
+      #111827,
+      #1e3a8a
+    );
+
+  background-size: cover;
+
+  background-position: center;
+
+  z-index: 2000;
+
+  cursor: pointer;
+
+}
+
+
+.counter-screen.show {
+
+  display: flex;
+
+}
+
+
+.counter-screen::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    rgba(0,0,0,.5);
+
+}
+
+
+.counter-content {
+
+  position: relative;
+
+  z-index: 2;
+
+}
+
+
+.counter-content h1 {
+
+  font-size: 45px;
+
+  margin-bottom: 30px;
+
+}
+
+
+.counter-number {
+
+  font-size: 120px;
+
+  font-weight: bold;
+
+  margin-bottom: 10px;
+
+}
+
+
+.target-text {
+
+  font-size: 20px;
+
+}
+
+
+.click-text {
+
+  margin-top: 30px;
+
+  opacity: .8;
+
+}
+
+
+.back-btn {
+
+  position: absolute;
+
+  top: 25px;
+
+  left: 25px;
+
+  z-index: 5;
+
+  padding:
+    12px
+    20px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(255,255,255,.2);
+
+  color: white;
+
+}
+
+
+.counter-edit-btn {
+
+  position: absolute;
+
+  top: 25px;
+
+  right: 25px;
+
+  z-index: 5;
+
+  padding:
+    12px
+    20px;
+
+  border-radius: 8px;
+
+  background:
+    rgba(255,255,255,.2);
+
+  color: white;
+
+}
+
+
+/* PROGRESS */
+
+.progress-container {
+
+  width: 300px;
+
+  height: 10px;
+
+  background:
+    rgba(255,255,255,.3);
+
+  margin:
+    25px auto;
+
+  border-radius: 20px;
+
+  overflow: hidden;
+
+}
+
+
+.progress-bar {
+
+  height: 100%;
+
+  width: 0%;
+
+  background: white;
+
+  transition: .2s;
+
+}
+
+
+/* REPORT */
+
+.report-tabs {
+
+  display: flex;
+
+  gap: 10px;
+
+  margin-bottom: 20px;
+
+}
+
+
+.report-tab {
+
+  flex: 1;
+
+  padding: 10px;
+
+  border-radius: 8px;
+
+  background: #eee;
+
+}
+
+
+.report-tab.active {
+
+  background: #2563eb;
+
+  color: white;
+
+}
+
+
+.report-item {
+
+  padding: 15px;
+
+  margin-bottom: 10px;
+
+  background: #f8fafc;
+
+  border-radius: 8px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+}
+
+
+@media
+(max-width: 600px) {
+
+
+  .header {
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 20px;
+
+  }
+
+
+  .create-btn {
+
+    width: 100%;
+
+  }
+
+
+  .counter-number {
+
+    font-size: 80px;
+
+  }
+
+
+  .counter-content h1 {
+
+    font-size: 30px;
+
+  }
+
+
+  .progress-container {
+
+    width: 80%;
+
+  }
+
+}

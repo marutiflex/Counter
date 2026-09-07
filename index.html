@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Counter App</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div>
+        <h1>My Counters</h1>
+        <p>Create and track unlimited counters</p>
+      </div>
+
+      <button class="create-btn" id="createCounterBtn">
+        + Create Counter
+      </button>
+    </header>
+
+
+    <!-- COUNTER LIST -->
+    <main id="counterList" class="counter-list"></main>
+
+
+    <!-- EMPTY STATE -->
+    <div id="emptyState" class="empty-state">
+
+      <div class="empty-icon">🙏</div>
+
+      <h2>No Counter Created</h2>
+
+      <p>Create your first counter and start tracking.</p>
+
+      <button onclick="openCreateModal()">
+        Create Your First Counter
+      </button>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- CREATE / EDIT MODAL -->
+
+  <div class="modal-overlay" id="counterModal">
+
+    <div class="modal">
+
+      <div class="modal-header">
+
+        <h2 id="modalTitle">
+          Create Counter
+        </h2>
+
+        <button class="close-btn" onclick="closeModal()">
+          ×
+        </button>
+
+      </div>
+
+
+      <form id="counterForm">
+
+
+        <!-- TITLE -->
+
+        <div class="form-group">
+
+          <label>
+            Counter Title
+          </label>
+
+          <input
+            type="text"
+            id="counterTitle"
+            placeholder="Example: Ram Ram Chanting"
+            required
+          />
+
+        </div>
+
+
+
+        <!-- TARGET -->
+
+        <div class="form-group">
+
+          <label>
+            Counter Target Level
+          </label>
+
+          <input
+            type="number"
+            id="counterTarget"
+            placeholder="Example: 1000"
+            min="1"
+            required
+          />
+
+        </div>
+
+
+
+        <!-- BACKGROUND -->
+
+        <div class="form-group">
+
+          <label>
+            Add Background Image
+          </label>
+
+          <input
+            type="file"
+            id="counterBackground"
+            accept="image/*"
+          />
+
+        </div>
+
+
+
+        <!-- STOP TARGET -->
+
+        <div class="form-group">
+
+          <label>
+            Stop Counter at Target Level?
+          </label>
+
+          <select id="stopAtTarget">
+
+            <option value="yes">
+              Yes
+            </option>
+
+            <option value="no">
+              No
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <!-- BUTTON -->
+
+        <button type="submit" class="save-btn">
+
+          Save Counter
+
+        </button>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- COUNTER SCREEN -->
+
+  <div id="counterScreen" class="counter-screen">
+
+    <!-- BACK BUTTON -->
+
+    <button
+      class="back-btn"
+      id="backBtn"
+    >
+      ← Back
+    </button>
+
+
+
+    <!-- EDIT BUTTON -->
+
+    <button
+      class="counter-edit-btn"
+      id="counterEditBtn"
+    >
+      ✏ Edit
+    </button>
+
+
+
+    <!-- COUNTER CONTENT -->
+
+    <div class="counter-content">
+
+      <h1 id="activeCounterTitle">
+        Ram Ram Chanting
+      </h1>
+
+
+      <div
+        class="counter-number"
+        id="activeCounterNumber"
+      >
+        0
+      </div>
+
+
+      <div class="target-text">
+
+        Target:
+        <span id="activeCounterTarget">
+          1000
+        </span>
+
+      </div>
+
+
+      <p class="click-text">
+
+        Click anywhere to increase
+
+      </p>
+
+
+      <!-- PROGRESS -->
+
+      <div class="progress-container">
+
+        <div
+          class="progress-bar"
+          id="progressBar"
+        ></div>
+
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- REPORT MODAL -->
+
+  <div
+    class="modal-overlay"
+    id="reportModal"
+  >
+
+    <div class="modal report-box">
+
+      <div class="modal-header">
+
+        <h2>
+          Score Reports
+        </h2>
+
+        <button
+          class="close-btn"
+          onclick="closeReport()"
+        >
+          ×
+        </button>
+
+      </div>
+
+
+      <!-- REPORT TABS -->
+
+      <div class="report-tabs">
+
+        <button
+          onclick="showReport('daily')"
+          class="report-tab active"
+        >
+          Daily
+        </button>
+
+
+        <button
+          onclick="showReport('weekly')"
+          class="report-tab"
+        >
+          Weekly
+        </button>
+
+
+        <button
+          onclick="showReport('monthly')"
+          class="report-tab"
+        >
+          Monthly
+        </button>
+
+
+      </div>
+
+
+      <!-- REPORT DATA -->
+
+      <div
+        id="reportContent"
+        class="report-content"
+      ></div>
+
+
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
