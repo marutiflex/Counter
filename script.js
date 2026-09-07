@@ -312,6 +312,114 @@ function convertImageToBase64(file) {
 // RENDER COUNTERS
 // ==========================================
 
+// function renderCounters() {
+
+//     const counterList =
+//         document.getElementById("counterList");
+
+
+//     const emptyState =
+//         document.getElementById("emptyState");
+
+
+//     counterList.innerHTML = "";
+
+
+//     if (counters.length === 0) {
+
+//         emptyState.style.display = "block";
+
+//         return;
+
+//     }
+
+
+//     emptyState.style.display = "none";
+
+
+//     counters.forEach(function (counter) {
+
+//         const card =
+//             document.createElement("div");
+
+
+//         card.className = "counter-card";
+
+
+//         const bgStyle =
+//             counter.background
+//                 ? `background-image: url("${counter.background}")`
+//                 : "";
+
+
+//         card.innerHTML = `
+
+//             <div
+//                 class="counter-card-bg"
+//                 style="${bgStyle}"
+//             ></div>
+
+//             <div class="counter-card-content">
+
+//                 <h2>${escapeHTML(counter.title)}</h2>
+
+//                 <div class="score">
+//                     ${counter.score}
+//                 </div>
+
+//                 <div class="target">
+//                     Target: ${counter.target}
+//                 </div>
+
+//                 <div class="card-buttons">
+
+//                     <button
+//                         class="open-btn"
+//                         onclick="openCounter('${counter.id}')"
+//                     >
+//                         Open
+//                     </button>
+
+//                     <button
+//                         class="report-btn"
+//                         onclick="openReport('${counter.id}')"
+//                     >
+//                         Reports
+//                     </button>
+
+//                 </div>
+
+
+//                 <div class="card-buttons">
+
+//                     <button
+//                         class="edit-btn"
+//                         onclick="editCounter('${counter.id}')"
+//                     >
+//                         Edit
+//                     </button>
+
+
+//                     <button
+//                         class="delete-btn"
+//                         onclick="deleteCounter('${counter.id}')"
+//                     >
+//                         Delete
+//                     </button>
+
+//                 </div>
+
+//             </div>
+
+//         `;
+
+
+//         counterList.appendChild(card);
+
+//     });
+
+// }
+
 function renderCounters() {
 
     const counterList =
@@ -343,12 +451,26 @@ function renderCounters() {
             document.createElement("div");
 
 
-        card.className = "counter-card";
+        card.className =
+            "counter-card";
 
+
+        // BACKGROUND IMAGE
 
         const bgStyle =
             counter.background
-                ? `background-image: url("${counter.background}")`
+                ? `
+                    background-image:
+                    linear-gradient(
+                        rgba(0,0,0,0.25),
+                        rgba(0,0,0,0.25)
+                    ),
+                    url("${counter.background}");
+
+                    background-size: cover;
+
+                    background-position: center;
+                  `
                 : "";
 
 
@@ -357,19 +479,48 @@ function renderCounters() {
             <div
                 class="counter-card-bg"
                 style="${bgStyle}"
-            ></div>
+            >
+
+                <div class="counter-image-overlay">
+
+                    <h2>
+                        ${escapeHTML(counter.title)}
+                    </h2>
+
+                </div>
+
+            </div>
+
 
             <div class="counter-card-content">
 
-                <h2>${escapeHTML(counter.title)}</h2>
 
-                <div class="score">
-                    ${counter.score}
+                <div class="counter-score-row">
+
+                    <div>
+
+                        <div class="score">
+                            ${counter.score}
+                        </div>
+
+                        <div class="target">
+                            Target: ${counter.target}
+                        </div>
+
+                    </div>
+
+
+                    <div class="target-status">
+
+                        ${counter.stopAtTarget === "yes"
+                ? "🎯 Target Stop ON"
+                : "♾️ Unlimited"
+            }
+
+                    </div>
+
                 </div>
 
-                <div class="target">
-                    Target: ${counter.target}
-                </div>
 
                 <div class="card-buttons">
 
@@ -379,6 +530,7 @@ function renderCounters() {
                     >
                         Open
                     </button>
+
 
                     <button
                         class="report-btn"
@@ -392,11 +544,12 @@ function renderCounters() {
 
                 <div class="card-buttons">
 
+
                     <button
                         class="edit-btn"
                         onclick="editCounter('${counter.id}')"
                     >
-                        Edit
+                        ✏ Edit
                     </button>
 
 
@@ -404,10 +557,12 @@ function renderCounters() {
                         class="delete-btn"
                         onclick="deleteCounter('${counter.id}')"
                     >
-                        Delete
+                        🗑 Delete
                     </button>
 
+
                 </div>
+
 
             </div>
 
