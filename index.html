@@ -1,324 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Counter App</title>
-  
-
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tally — Counters</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-  <div class="app">
+<div class="app">
 
-    <!-- HEADER -->
-    <header class="header">
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">📿</span>
       <div>
-        <h1>My Counters</h1>
-        <p>Create and track unlimited counters</p>
+        <h1>Tally</h1>
+        <p id="dashboardLine" class="dashboard-line">Nothing counted yet today</p>
       </div>
-
-      <button class="create-btn" id="createCounterBtn">
-        + Create Counter
-      </button>
-    </header>
-
-
-    <!-- COUNTER LIST -->
-    <main id="counterList" class="counter-list"></main>
-
-
-    <!-- EMPTY STATE -->
-    <div id="emptyState" class="empty-state">
-
-      <div class="empty-icon">🙏</div>
-
-      <h2>No Counter Created</h2>
-
-      <p>Create your first counter and start tracking.</p>
-
-      <button onclick="openCreateModal()">
-        Create Your First Counter
-      </button>
-
     </div>
 
+    <div class="topbar-actions">
+      <button class="icon-btn" id="themeToggleBtn" title="Toggle theme" aria-label="Toggle theme">🌓</button>
+      <button class="icon-btn" id="settingsBtn" title="Settings" aria-label="Settings">⚙️</button>
+      <button class="create-btn" id="createCounterBtn">+ New Counter</button>
+    </div>
+  </header>
 
+
+  <!-- COUNTER LIST -->
+  <main id="counterList" class="counter-list"></main>
+
+
+  <!-- EMPTY STATE -->
+  <div id="emptyState" class="empty-state">
+    <div class="empty-icon">📿</div>
+    <h2>No counters yet</h2>
+    <p>Create one to start tracking — a japa count, a habit, reps, anything you tally by hand.</p>
+    <button onclick="openCreateModal()">Create your first counter</button>
   </div>
 
+</div>
 
-  <!-- CREATE / EDIT MODAL -->
 
-  <div class="modal-overlay" id="counterModal">
+<!-- CREATE / EDIT MODAL -->
+<div class="modal-overlay" id="counterModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Create Counter</h2>
+      <button class="close-btn" onclick="closeModal()">×</button>
+    </div>
 
-    <div class="modal">
+    <form id="counterForm">
 
-      <div class="modal-header">
-
-        <h2 id="modalTitle">
-          Create Counter
-        </h2>
-
-        <button class="close-btn" onclick="closeModal()">
-          ×
-        </button>
-
+      <div class="form-group">
+        <label>Counter title</label>
+        <input type="text" id="counterTitle" placeholder="Example: Ram Ram Chanting" required />
       </div>
 
-
-      <form id="counterForm">
-
-
-        <!-- TITLE -->
-
+      <div class="form-row">
         <div class="form-group">
-
-          <label>
-            Counter Title
-          </label>
-
-          <input
-            type="text"
-            id="counterTitle"
-            placeholder="Example: Ram Ram Chanting"
-            required
-          />
-
+          <label>Target</label>
+          <input type="number" id="counterTarget" placeholder="Example: 1000" min="1" required />
         </div>
 
-
-
-        <!-- TARGET -->
-
         <div class="form-group">
-
-          <label>
-            Counter Target Level
-          </label>
-
-          <input
-            type="number"
-            id="counterTarget"
-            placeholder="Example: 1000"
-            min="1"
-            required
-          />
-
-        </div>
-
-
-
-        <!-- BACKGROUND -->
-
-        <div class="form-group">
-
-          <label>
-            Add Background Image
-          </label>
-
-          <input
-            type="file"
-            id="counterBackground"
-            accept="image/*"
-          />
-
-        </div>
-
-
-
-        <!-- STOP TARGET -->
-
-        <div class="form-group">
-
-          <label>
-            Stop Counter at Target Level?
-          </label>
-
+          <label>Stop at target?</label>
           <select id="stopAtTarget">
-
-            <option value="yes">
-              Yes
-            </option>
-
-            <option value="no">
-              No
-            </option>
-
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
           </select>
-
         </div>
+      </div>
+
+      <div class="form-group">
+        <label>Emoji</label>
+        <div class="emoji-picker" id="emojiPicker">
+          <button type="button" data-emoji="📿" class="emoji-opt">📿</button>
+          <button type="button" data-emoji="🙏" class="emoji-opt">🙏</button>
+          <button type="button" data-emoji="🔥" class="emoji-opt">🔥</button>
+          <button type="button" data-emoji="💧" class="emoji-opt">💧</button>
+          <button type="button" data-emoji="🌙" class="emoji-opt">🌙</button>
+          <button type="button" data-emoji="⭐" class="emoji-opt">⭐</button>
+          <button type="button" data-emoji="📖" class="emoji-opt">📖</button>
+          <button type="button" data-emoji="🏃" class="emoji-opt">🏃</button>
+        </div>
+        <input type="hidden" id="counterEmoji" value="📿" />
+      </div>
+
+      <div class="form-group">
+        <label>Accent color</label>
+        <div class="color-picker" id="colorPicker">
+          <button type="button" data-color="#8B3A3A" class="color-opt" style="background:#8B3A3A"></button>
+          <button type="button" data-color="#B98A2E" class="color-opt" style="background:#B98A2E"></button>
+          <button type="button" data-color="#4B7A57" class="color-opt" style="background:#4B7A57"></button>
+          <button type="button" data-color="#3E5C8A" class="color-opt" style="background:#3E5C8A"></button>
+          <button type="button" data-color="#7A4B8A" class="color-opt" style="background:#7A4B8A"></button>
+        </div>
+        <input type="hidden" id="counterColor" value="#8B3A3A" />
+      </div>
+
+      <div class="form-group">
+        <label>Background image (optional)</label>
+        <input type="file" id="counterBackground" accept="image/*" />
+      </div>
+
+      <div class="form-group">
+        <label>Daily reminder (optional)</label>
+        <div class="form-row">
+          <input type="checkbox" id="reminderEnabled" style="width:auto; flex:0;" />
+          <input type="time" id="reminderTime" value="20:00" />
+        </div>
+        <p class="field-hint">Notifies you while this tab is open. Browser must allow notifications.</p>
+      </div>
+
+      <button type="submit" class="save-btn">Save Counter</button>
+    </form>
+  </div>
+</div>
 
 
-
-        <!-- BUTTON -->
-
-        <button type="submit" class="save-btn">
-
-          Save Counter
-
-        </button>
-
-
-      </form>
-
+<!-- SETTINGS MODAL -->
+<div class="modal-overlay" id="settingsModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Settings</h2>
+      <button class="close-btn" onclick="closeSettings()">×</button>
     </div>
 
-  </div>
-
-
-
-  <!-- COUNTER SCREEN -->
-
-  <div id="counterScreen" class="counter-screen">
-
-    <!-- BACK BUTTON -->
-
-    <button
-      class="back-btn"
-      id="backBtn"
-    >
-      ← Back
-    </button>
-
-
-
-    <!-- EDIT BUTTON -->
-
-    <button
-      class="counter-edit-btn"
-      id="counterEditBtn"
-    >
-      ✏ Edit
-    </button>
-
-
-
-    <!-- COUNTER CONTENT -->
-
-    <div class="counter-content">
-
-      <h1 id="activeCounterTitle">
-        Ram Ram Chanting
-      </h1>
-
-
-      <div
-        class="counter-number"
-        id="activeCounterNumber"
-      >
-        0
+    <div class="setting-row">
+      <div>
+        <strong>Tap sound</strong>
+        <p class="field-hint">Soft chime on every count</p>
       </div>
-
-
-      <div class="target-text">
-
-        Target:
-        <span id="activeCounterTarget">
-          1000
-        </span>
-
-      </div>
-
-
-      <p class="click-text">
-
-        Click anywhere to increase
-
-      </p>
-
-
-      <!-- PROGRESS -->
-
-      <div class="progress-container">
-
-        <div
-          class="progress-bar"
-          id="progressBar"
-        ></div>
-
-      </div>
-
-
+      <label class="switch">
+        <input type="checkbox" id="soundToggle" />
+        <span class="slider"></span>
+      </label>
     </div>
 
-
-  </div>
-
-
-
-  <!-- REPORT MODAL -->
-
-  <div
-    class="modal-overlay"
-    id="reportModal"
-  >
-
-    <div class="modal report-box">
-
-      <div class="modal-header">
-
-        <h2>
-          Score Reports
-        </h2>
-
-        <button
-          class="close-btn"
-          onclick="closeReport()"
-        >
-          ×
-        </button>
-
+    <div class="setting-row">
+      <div>
+        <strong>Vibration</strong>
+        <p class="field-hint">Haptic feedback on tap (mobile)</p>
       </div>
-
-
-      <!-- REPORT TABS -->
-
-      <div class="report-tabs">
-
-        <button
-          onclick="showReport('daily')"
-          class="report-tab active"
-        >
-          Daily
-        </button>
-
-
-        <button
-          onclick="showReport('weekly')"
-          class="report-tab"
-        >
-          Weekly
-        </button>
-
-
-        <button
-          onclick="showReport('monthly')"
-          class="report-tab"
-        >
-          Monthly
-        </button>
-
-
-      </div>
-
-
-      <!-- REPORT DATA -->
-
-      <div
-        id="reportContent"
-        class="report-content"
-      ></div>
-
-
+      <label class="switch">
+        <input type="checkbox" id="vibrationToggle" />
+        <span class="slider"></span>
+      </label>
     </div>
 
+    <div class="setting-row">
+      <div>
+        <strong>Show archived counters</strong>
+        <p class="field-hint">Include archived counters in the list</p>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="showArchivedToggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <strong>Export backup</strong>
+        <p class="field-hint">Save every counter as a JSON file</p>
+      </div>
+      <button class="ghost-btn" id="exportAllBtn">Export</button>
+    </div>
+
+    <div class="setting-row">
+      <div>
+        <strong>Import backup</strong>
+        <p class="field-hint">Restore counters from a JSON file</p>
+      </div>
+      <button class="ghost-btn" id="importAllBtn">Import</button>
+      <input type="file" id="importFileInput" accept="application/json" hidden />
+    </div>
+  </div>
+</div>
+
+
+<!-- COUNTER SCREEN -->
+<div id="counterScreen" class="counter-screen">
+
+  <div class="screen-topbar">
+    <button class="pill-btn" id="backBtn">← Back</button>
+    <div class="screen-topbar-right">
+      <button class="pill-btn" id="counterEditBtn">✏ Edit</button>
+      <button class="pill-btn" id="resetBtn" title="Reset count to 0">↺ Reset</button>
+      <button class="pill-btn" id="undoBtn" title="Undo last tap">⤺ Undo</button>
+    </div>
+    <div>
+        <button class="pill-btn" id="editScrore" title="Undo last tap">Score</button>
+    </div>
   </div>
 
+  <div class="counter-content">
+    <div class="active-emoji" id="activeCounterEmoji">📿</div>
+    <h1 id="activeCounterTitle">Ram Ram Chanting</h1>
 
-  <script src="script.js"></script>
+    <div class="counter-number editable-number" id="activeCounterNumber" title="Tap to set an exact count">0</div>
 
+    <div class="target-text">Target: <span id="activeCounterTarget">1000</span></div>
+
+    <div class="stat-strip" id="statStrip">
+      <div class="stat-pill"><span id="statToday">0</span><label>Today</label></div>
+      <div class="stat-pill"><span id="statYesterday">0</span><label>Yesterday</label></div>
+      <div class="stat-pill" style="display: none;"><span id="statStreak">0</span><label>Streak</label></div>
+      <div class="stat-pill" style="display: none;"><span id="statBestStreak">0</span><label>Best</label></div>
+    </div>
+
+    <p class="click-text">Tap anywhere to count · tap the number to set it exactly</p>
+
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <p class="eta-text" id="etaText"></p>
+
+    <div class="quickadd-row" style="display: none;">
+      <button class="quickadd-btn" data-amount="10">+10</button>
+      <button class="quickadd-btn" data-amount="108">+108</button>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- REPORT MODAL -->
+<div class="modal-overlay" id="reportModal">
+  <div class="modal report-box">
+    <div class="modal-header">
+      <h2>Reports</h2>
+      <button class="close-btn" onclick="closeReport()">×</button>
+    </div>
+
+    <div class="report-tabs">
+      <button onclick="showReport('daily')" class="report-tab active" data-tab="daily">Daily</button>
+      <button onclick="showReport('weekly')" class="report-tab" data-tab="weekly">Weekly</button>
+      <button onclick="showReport('monthly')" class="report-tab" data-tab="monthly">Monthly</button>
+      <button onclick="showReport('activity')" class="report-tab" data-tab="activity">Activity</button>
+    </div>
+
+    <div id="reportContent" class="report-content"></div>
+    <button class="ghost-btn full-width" id="exportCsvBtn">Export this counter as CSV</button>
+  </div>
+</div>
+
+
+<script src="script.js"></script>
 </body>
 </html>
